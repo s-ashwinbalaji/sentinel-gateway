@@ -9,6 +9,11 @@ import re
 
 app = FastAPI(title="Sentinel Zero-Trust AI Gateway")
 
+from fastapi.responses import RedirectResponse
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/docs")
+
 # Enable CORS for the frontend
 app.add_middleware(
     CORSMiddleware,
