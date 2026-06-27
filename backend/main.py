@@ -19,8 +19,8 @@ import asyncio
 # Load environment variables
 load_dotenv()
 
-# Configure Grok (via OpenAI SDK)
-api_key = os.getenv("XAI_API_KEY")
+# Configure Groq (via OpenAI SDK)
+api_key = os.getenv("GROQ_API_KEY")
 has_grok = False
 client = None
 if api_key and api_key != "your_xai_api_key_here":
@@ -245,7 +245,7 @@ async def process_payload(request: PayloadRequest, db: Session = Depends(databas
                 except Exception as e:
                     bot_response = f"Target AI Error: {e}"
             else:
-                bot_response = "[Mock Target AI Response] Grok API Key not configured."
+                bot_response = "[Mock Target AI Response] Groq API Key not configured."
 
     # Create log entry
     db_log = database.SecurityLog(
