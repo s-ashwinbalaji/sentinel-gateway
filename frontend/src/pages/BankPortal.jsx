@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Building2, CreditCard, Activity, Shield, LogOut, MessageSquare, X, ArrowRightLeft, Wallet, User, Globe } from 'lucide-react';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || (import.meta.env.MODE === 'production' ? '' : 'http://localhost:8000');
 
 function BankPortal() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("sentinel_logged_in") === "true");

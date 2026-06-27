@@ -1,5 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException, Body, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from pydantic import BaseModel
@@ -328,3 +331,19 @@ def get_status():
         "banned_ips": list(BANNED_IPS),
         "custom_waf_rules": custom_waf_rules
     }
+
+# Serve Frontend SPA
+frontend_path = os.path.join(os.path.dirname(__file__), "../frontend/dist")
+if os.path.exists(frontend_path):
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
+    
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        if full_path.startswith("api/"):
+            return {"error": "API route not found"}
+        
+        file_path = os.path.join(frontend_path, full_path)
+        if os.path.isfile(file_path):
+            return FileResponse(file_path)
+            
+        return FileResponse(os.path.join(frontend_path, "index.html"))

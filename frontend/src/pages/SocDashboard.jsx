@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Shield, ShieldAlert, Activity, Send, Terminal, Bot, Database, Server, Zap, Lock, Unlock, Settings2, Plus, X, AlertTriangle, Info, Download } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
-const WS_URL = BACKEND_URL.replace(/^http/, "ws") + "/api/ws/logs";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || (import.meta.env.MODE === 'production' ? '' : 'http://localhost:8000');
+const WS_URL = import.meta.env.MODE === 'production' ? (window.location.protocol === 'https:' ? `wss://${window.location.host}/api/ws/logs` : `ws://${window.location.host}/api/ws/logs`) : (BACKEND_URL.replace(/^http/, "ws") + "/api/ws/logs");
 
 function SocDashboard() {
   const [logs, setLogs] = useState([]);
