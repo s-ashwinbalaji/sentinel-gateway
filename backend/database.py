@@ -20,7 +20,9 @@ class SecurityLog(Base):
     source = Column(String, index=True)
     destination = Column(String, index=True)
     payload_classification = Column(String, index=True)
-    status = Column(String, index=True) # "Allowed" or "Blocked"
+    status = Column(String, index=True) # "Allowed" or "Blocked" or "Quarantined"
+    risk_level = Column(String, default="LOW")
+    risk_percentage = Column(Integer, default=0)
     payload = Column(String)
 
 def init_db():

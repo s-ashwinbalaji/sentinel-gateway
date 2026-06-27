@@ -16,4 +16,6 @@ backend/gateway.db
 .DS_Store
 .idea/
 .vscode/
-source/
+source/backend/.env
+
+backend/.env
