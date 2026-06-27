@@ -5,6 +5,12 @@ frontend/.env
 frontend/.env.*
 frontend/.eslintcache
 
+# Customer Chatbot
+customer-chatbot/node_modules/
+customer-chatbot/dist/
+customer-chatbot/.env
+customer-chatbot/.env.*
+
 # Backend
 backend/venv/
 backend/__pycache__/
